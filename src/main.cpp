@@ -4,7 +4,8 @@
 #include "GLEW/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "geometries/triangle.h"
+//#include "geometries/triangle.h"
+#include "geometries/rectangle.h"
 #include "utils/callbacks.h"
 
 const int WIDTH_SCREEN = 800;
@@ -74,7 +75,8 @@ int main()
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-	Geometry::Triangle triangle;
+	//Geometry::Triangle triangle;
+	Geometry::Rectangle rectangle(false);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -83,7 +85,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
-		triangle.draw(shaderProgram);
+		//triangle.draw(shaderProgram);
+		rectangle.draw(shaderProgram);
 
 		glfwSwapBuffers(window);
 		glfwWaitEvents();

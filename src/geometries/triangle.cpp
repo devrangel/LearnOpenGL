@@ -5,9 +5,9 @@ namespace Geometry
 	Triangle::Triangle()
 	{
 		float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.0f,  0.5f, 0.0f
 		};
 
 		this->m_VAO;
@@ -29,5 +29,6 @@ namespace Geometry
 		glUseProgram(shaderProgram);
 		glBindVertexArray(this->m_VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(0);
 	}
 }
