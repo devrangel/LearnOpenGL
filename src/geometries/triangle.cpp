@@ -30,9 +30,4 @@ namespace Geometry
 		glBindVertexArray(this->m_VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
-
-	GLuint Triangle::getVAO()
-	{
-		return this->m_VAO;
-	}
 }
