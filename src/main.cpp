@@ -83,9 +83,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
-		glUseProgram(shaderProgram);
-		glBindVertexArray(triangle.getVAO());
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		triangle.draw(shaderProgram);
 
 		glfwSwapBuffers(window);
 		glfwWaitEvents();

@@ -24,6 +24,13 @@ namespace Geometry
 		glBindVertexArray(0);
 	}
 
+	void Triangle::draw(const GLuint& shaderProgram)
+	{
+		glUseProgram(shaderProgram);
+		glBindVertexArray(this->m_VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+	}
+
 	GLuint Triangle::getVAO()
 	{
 		return this->m_VAO;

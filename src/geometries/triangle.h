@@ -8,7 +8,7 @@ namespace Geometry
 	{
 	public:
 		Triangle();
-		GLuint getVAO();
+		void draw(const GLuint& shaderProgram);
 	private:
 		GLuint m_VAO;
 		GLuint m_VBO;
