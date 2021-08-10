@@ -5,14 +5,13 @@
 #include "GLFW/glfw3.h"
 
 #include "geometries/triangle.h"
+#include "utils/callbacks.h"
 
 const int WIDTH_SCREEN = 800;
 const int HEIGHT_SCREEN = 600;
 
 GLuint compileShader(GLenum shaderType, const GLchar* const* shaderSourceCode);
 GLuint createProgram(GLuint vertexShader, GLuint fragmentShader);
-void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
 
 const char* vertexShaderCode = R"(#version 330 core
 layout(location = 0) in vec3 aPos;
@@ -50,7 +49,7 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	// Callbacks for GLFW
-	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
+	glfwSetFramebufferSizeCallback(window, Callbacks::framebufferSizeCallback);
 
 	assert(glewInit() == GLEW_OK);
 
@@ -79,7 +78,7 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		processInput(window);
+		Callbacks::processInput(window);
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -151,17 +150,4 @@ GLuint createProgram(GLuint vertexShader, GLuint fragmentShader)
 	glDeleteShader(fragmentShader);
 
 	return program;
-}
-
-void framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
-
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
 }

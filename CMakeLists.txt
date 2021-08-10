@@ -2,7 +2,7 @@
 
 project("LearnOpenGL")
 
-add_executable(LearnOpenGL "src/main.cpp" "src/utils/callbacks.cpp"  "src/geometries/triangle.cpp")
+add_executable(LearnOpenGL "src/main.cpp"   "src/geometries/triangle.cpp")
 
 target_include_directories(LearnOpenGL PRIVATE deps/include)
 
