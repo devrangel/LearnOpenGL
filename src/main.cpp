@@ -4,8 +4,8 @@
 #include "GLEW/glew.h"
 #include "GLFW/glfw3.h"
 
-//#include "geometries/triangle.h"
-#include "geometries/rectangle.h"
+#include "geometries/triangle.h"
+//#include "geometries/rectangle.h"
 #include "utils/callbacks.h"
 
 const int WIDTH_SCREEN = 800;
@@ -26,9 +26,11 @@ void main()
 const char* fragmentShaderCode = R"(#version 330 core
 out vec4 FragColor;
 
+uniform vec4 uColor;
+
 void main()
 {
-	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+	FragColor = uColor;
 }
 )";
 
@@ -57,6 +59,7 @@ int main()
 	// Display OpenGL infos
 	GLint GLMajorVersion = 0;
 	GLint GLMinorVersion = 0;
+	GLint nrVertexAttributes;
 	glGetIntegerv(GL_MAJOR_VERSION, &GLMajorVersion);
 	glGetIntegerv(GL_MINOR_VERSION, &GLMinorVersion);
 	std::cout << "OpenGL Version: " << GLMajorVersion << "." << GLMinorVersion << std::endl;
@@ -64,6 +67,8 @@ int main()
 	std::cout << "OpenGL Renderer: " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrVertexAttributes);
+	std::cout << "Max number of vertex attributes supported: " << nrVertexAttributes << std::endl;
 
 	// ----------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------
@@ -73,20 +78,21 @@ int main()
 	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, &fragmentShaderCode);
 	GLuint shaderProgram = createProgram(vertexShader, fragmentShader);
 
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	
 
-	//Geometry::Triangle triangle;
-	Geometry::Rectangle rectangle(false);
+	Geometry::Triangle triangle;
+	//Geometry::Rectangle rectangle(false);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		Callbacks::processInput(window);
 
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
-		//triangle.draw(shaderProgram);
-		rectangle.draw(shaderProgram);
+		triangle.drawSingleColorVarying(shaderProgram);
+		//rectangle.draw(shaderProgram);
 
 		glfwSwapBuffers(window);
 		glfwWaitEvents();

@@ -1,6 +1,9 @@
 #pragma once
 
+#include <cmath>
+
 #include "GLEW/glew.h"
+#include "GLFW/glfw3.h"
 
 namespace Geometry
 {
@@ -8,7 +11,8 @@ namespace Geometry
 	{
 	public:
 		Triangle();
-		void draw(const GLuint& shaderProgram);
+		void drawSingleColor(const GLuint& shaderProgram);
+		void drawSingleColorVarying(const GLuint& shaderProgram);
 	private:
 		GLuint m_VAO;
 		GLuint m_VBO;
