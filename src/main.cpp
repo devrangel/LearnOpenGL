@@ -78,16 +78,15 @@ int main()
 	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, &fragmentShaderCode);
 	GLuint shaderProgram = createProgram(vertexShader, fragmentShader);
 
-	
-
 	Geometry::Triangle triangle;
 	//Geometry::Rectangle rectangle(false);
+
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		Callbacks::processInput(window);
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
@@ -95,7 +94,7 @@ int main()
 		//rectangle.draw(shaderProgram);
 
 		glfwSwapBuffers(window);
-		glfwWaitEvents();
+		glfwPollEvents();
 	}
 
 	glfwTerminate();
