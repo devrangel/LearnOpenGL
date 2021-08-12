@@ -1,5 +1,23 @@
 #include "rectangle.h"
 
+static const char* vertexShaderCode = R"(#version 330 core
+layout(location = 0) in vec3 aPos;
+
+void main()
+{
+	gl_Position = vec4(aPos, 1.0f);
+}
+)";
+
+static const char* fragmentShaderCode = R"(#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+}
+)";
+
 namespace Geometry
 {
 	Rectangle::Rectangle(bool wireframeMode)
@@ -37,11 +55,14 @@ namespace Geometry
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		glBindVertexArray(0);
+
+		this->m_shaderProgram = Shader(vertexShaderCode, fragmentShaderCode);
 	}
 
-	void Rectangle::draw(const GLuint& shaderProgam)
+	void Rectangle::draw()
 	{
-		glUseProgram(shaderProgam);
+		this->m_shaderProgram.useProgram();
+
 		glBindVertexArray(this->m_VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

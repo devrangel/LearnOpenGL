@@ -2,9 +2,10 @@
 
 project("LearnOpenGL")
 
-add_executable(LearnOpenGL "src/main.cpp" "src/geometries/triangle.cpp" "src/geometries/rectangle.cpp")
+add_executable(LearnOpenGL "src/main.cpp" "src/geometries/triangle.cpp" "src/geometries/rectangle.cpp" "src/utils/shader.cpp")
 
-target_include_directories(LearnOpenGL PRIVATE deps/include)
+target_include_directories(LearnOpenGL PRIVATE deps/include
+											   src)
 
 target_link_directories(LearnOpenGL PRIVATE deps/lib)
 target_link_libraries(LearnOpenGL PRIVATE glfw3.lib

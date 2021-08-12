@@ -11,29 +11,6 @@
 const int WIDTH_SCREEN = 800;
 const int HEIGHT_SCREEN = 600;
 
-GLuint compileShader(GLenum shaderType, const GLchar* const* shaderSourceCode);
-GLuint createProgram(GLuint vertexShader, GLuint fragmentShader);
-
-const char* vertexShaderCode = R"(#version 330 core
-layout(location = 0) in vec3 aPos;
-
-void main()
-{
-	gl_Position = vec4(aPos, 1.0f);
-}
-)";
-
-const char* fragmentShaderCode = R"(#version 330 core
-out vec4 FragColor;
-
-uniform vec4 uColor;
-
-void main()
-{
-	FragColor = uColor;
-}
-)";
-
 int main()
 {
 	assert(glfwInit() == GLFW_TRUE);
@@ -74,12 +51,8 @@ int main()
 	// ----------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------
 
-	GLuint vertexShader = compileShader(GL_VERTEX_SHADER, &vertexShaderCode);
-	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, &fragmentShaderCode);
-	GLuint shaderProgram = createProgram(vertexShader, fragmentShader);
-
-	Geometry::Triangle triangle;
-	//Geometry::Rectangle rectangle(false);
+	Geometry::Triangle triangle(true);
+	//Geometry::Rectangle rectangle(true);
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -90,8 +63,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
-		triangle.drawSingleColorVarying(shaderProgram);
-		//rectangle.draw(shaderProgram);
+		//rectangle.draw();
+		//triangle.drawSingleColorVarying(shaderProgram);
+		triangle.drawColorPerVertex();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -101,59 +75,4 @@ int main()
 	return 0;
 }
 
-GLuint compileShader(GLenum shaderType, const GLchar* const *shaderSourceCode)
-{
-	GLuint shader = glCreateShader(shaderType);
-	glShaderSource(shader, 1, shaderSourceCode, nullptr);
-	glCompileShader(shader);
 
-	GLint success;
-	GLchar infoLog[512];
-
-	if (shaderType == GL_VERTEX_SHADER)
-	{
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-		if (!success)
-		{
-			glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-			std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-			return -1;
-		}
-	}
-	else if (shaderType == GL_FRAGMENT_SHADER)
-	{
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-		if (!success)
-		{
-			glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-			return -1;
-		}
-	}
-
-	return shader;
-}
-
-GLuint createProgram(GLuint vertexShader, GLuint fragmentShader)
-{
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
-
-	GLint success;
-	GLchar infoLog[512];
-
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		glGetProgramInfoLog(program, 512, nullptr, infoLog);
-		std::cout << "ERROR::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-		return -1;
-	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	return program;
-}
