@@ -4,8 +4,9 @@
 #include "GLEW/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "geometries/triangle.h"
+//#include "geometries/triangle.h"
 //#include "geometries/rectangle.h"
+#include "geometries/rectangle_texture.h"
 #include "utils/callbacks.h"
 
 const int WIDTH_SCREEN = 800;
@@ -51,21 +52,23 @@ int main()
 	// ----------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------
 
-	Geometry::Triangle triangle(true);
+	//Geometry::Triangle triangle(true);
 	//Geometry::Rectangle rectangle(true);
+	Geometry::RectangleTexture rectangleTexture("assets/stone.jpg", "assets/face.png");
 
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
 		Callbacks::processInput(window);
 
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
 		//rectangle.draw();
 		//triangle.drawSingleColorVarying(shaderProgram);
-		triangle.drawColorPerVertex();
+		//triangle.drawColorPerVertex();
+		rectangleTexture.draw();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
