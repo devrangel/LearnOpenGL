@@ -4,10 +4,11 @@
 #include "GLEW/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "utils/callbacks.h"
 //#include "geometries/triangle.h"
 //#include "geometries/rectangle.h"
-#include "geometries/rectangle_texture.h"
-#include "utils/callbacks.h"
+//#include "geometries/rectangle_texture.h"
+#include "geometries/cube.h"
 
 const int WIDTH_SCREEN = 800;
 const int HEIGHT_SCREEN = 600;
@@ -54,21 +55,22 @@ int main()
 
 	//Geometry::Triangle triangle(true);
 	//Geometry::Rectangle rectangle(true);
-	Geometry::RectangleTexture rectangleTexture("assets/stone.jpg", "assets/face.png");
+	//Geometry::RectangleTexture rectangleTexture("assets/stone.jpg", "assets/face.png");
+	Geometry::Cube cube("assets/stone.jpg", "assets/face.png");
 
 
 	while (!glfwWindowShouldClose(window))
 	{
 		Callbacks::processInput(window);
 
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Draw
 		//rectangle.draw();
 		//triangle.drawSingleColorVarying(shaderProgram);
 		//triangle.drawColorPerVertex();
-		rectangleTexture.draw();
+		cube.draw();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

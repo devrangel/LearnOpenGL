@@ -6,7 +6,8 @@ add_executable(LearnOpenGL "src/main.cpp"
 						   "src/geometries/triangle.cpp" 
 						   "src/geometries/rectangle.cpp" 
 						   "src/utils/shader.cpp" 
-						   "src/geometries/rectangle_texture.cpp")
+						   "src/geometries/rectangle_texture.cpp"
+						   "src/geometries/cube.cpp")
 
 target_include_directories(LearnOpenGL PRIVATE deps/include
 											   src)
