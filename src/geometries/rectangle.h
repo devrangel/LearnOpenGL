@@ -3,14 +3,16 @@
 #include "GLEW/glew.h"
 
 #include "utils/shader.h"
+#include "geometry.h"
+#include "camera.h"
 
 namespace Geometry
 {
-	class Rectangle
+	class Rectangle : IGeometry
 	{
 	public:
 		Rectangle(bool wireframeMode);
-		void draw();
+		void draw(const Camera& camera) override;
 	private:
 		Shader m_shaderProgram;
 		GLuint m_VAO;

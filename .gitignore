@@ -1,5 +1,5 @@
 # Folders
 .vscode/
 .vs/
-deps/lib/
+deps/lib/glfw3.lib
 out/

@@ -140,7 +140,7 @@ namespace Geometry
 		glUseProgram(0);
 	}
 
-	void RectangleTexture::draw()
+	void RectangleTexture::draw(const Camera& camera)
 	{
 		this->m_shaderProgram.useProgram();
 

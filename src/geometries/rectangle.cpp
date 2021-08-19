@@ -59,7 +59,7 @@ namespace Geometry
 		this->m_shaderProgram = Shader(vertexShaderCode, fragmentShaderCode);
 	}
 
-	void Rectangle::draw()
+	void Rectangle::draw(const Camera& camera)
 	{
 		this->m_shaderProgram.useProgram();
 
